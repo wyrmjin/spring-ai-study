@@ -4,11 +4,11 @@ spring:
   ai:
     openai:
       api-key: ${ZHIPU_API_KEY}
-      base-url: https://open.bigmodel.cn/api/paas/v4
+      base-url: ${BASE_URL}
       chat:
-        completions-path: /chat/completions
+        completions-path: ${COMPLETIONS_PATH}
         options:
-          model: glm-4.7-flash
+          model: ${MODEL_ID}
           temperature: 0.8
           max-tokens: 8092
 

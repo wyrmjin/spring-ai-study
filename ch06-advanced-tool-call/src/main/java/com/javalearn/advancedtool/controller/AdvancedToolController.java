@@ -1,10 +1,11 @@
 package com.javalearn.advancedtool.controller;
 
+import com.javalearn.advancedtool.tools.OrderTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.support.ToolCallbacks;
-import com.javalearn.advancedtool.tools.OrderTools;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +48,7 @@ public class AdvancedToolController {
     public String chat(@RequestParam String message) {
         return toolChatClient.prompt()
                 .user(message)
+                .toolContext(Map.of("tenantId", "store-001"))
                 .call()
                 .content();
     }
@@ -64,7 +66,7 @@ public class AdvancedToolController {
         return ChatClient.create(chatModel)
                 .prompt()
                 .user(message)
-                .tools(callbacks)
+                .toolCallbacks(callbacks)
                 .toolContext(Map.of("tenantId", "store-001"))
                 .call()
                 .content();
@@ -76,10 +78,11 @@ public class AdvancedToolController {
      * 测试：
      * GET /tool/stream?message=帮我查订单ORD-003，然后再看看有什么iPad商品
      */
-    @GetMapping("/stream")
+    @GetMapping(value = "/stream",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> stream(@RequestParam String message) {
         return toolChatClient.prompt()
                 .user(message)
+                .toolContext(Map.of("tenantId", "store-001"))
                 .stream()
                 .content();
     }
