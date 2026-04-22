@@ -1,0 +1,29 @@
+spring:
+  ai:
+    openai:
+      api-key: ${ZHIPU_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas/v4
+      chat:
+        completions-path: /chat/completions
+        options:
+          model: glm-4.7-flash
+          temperature: 0.8
+          max-tokens: 2048
+      embedding:
+        embeddings-path: /embeddings
+        options:
+          model: embedding-3
+    vectorstore:
+      pgvector:
+        initialize-schema: false
+        dimensions: 2048
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/spring-ai-study
+
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG
+
+

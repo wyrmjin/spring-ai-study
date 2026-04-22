@@ -1,0 +1,79 @@
+Spring AI 知识库示例文档
+
+# Spring AI 概述
+
+Spring AI 是 Spring 生态中的 AI 工程框架，旨在简化 AI 应用的开发。它提供了统一的 API 抽象，支持多种 AI 模型提供商。
+
+## 核心特性
+
+1. ChatClient - 统一的聊天客户端 API，支持同步和流式调用
+2. Advisors - 请求/响应拦截器，用于增强 AI 交互
+3. Tool Calling - 工具调用，让模型能够执行外部操作
+4. RAG - 检索增强生成，结合知识库回答问题
+5. MCP - Model Context Protocol，标准化的模型上下文协议
+6. Vector Store - 向量存储抽象，支持多种向量数据库
+
+## 支持的向量数据库
+
+Spring AI 支持以下向量数据库：
+- PGVector (PostgreSQL)
+- Chroma
+- Pinecone
+- Redis
+- Milvus
+- Weaviate
+- Qdrant
+- Azure CosmosDB
+- MongoDB Atlas
+- Neo4j
+- Oracle
+
+## 支持的模型提供商
+
+Spring AI 支持多种 AI 模型提供商：
+- OpenAI (GPT-4, GPT-3.5)
+- Anthropic (Claude)
+- Google (Gemini)
+- 阿里通义 (Qwen)
+- 智谱AI (GLM)
+- Ollama (本地模型)
+- Azure OpenAI
+
+## ChatClient API
+
+ChatClient 是 Spring AI 的核心 API，提供了流式构建器模式：
+
+```java
+ChatClient chatClient = ChatClient.builder(chatModel)
+    .defaultSystem("你是一个友好的助手")
+    .defaultAdvisors(new SimpleLoggerAdvisor())
+    .build();
+
+String response = chatClient.prompt()
+    .user("你好")
+    .call()
+    .content();
+```
+
+## Advisors API
+
+Advisors 是拦截器模式，可以在请求发送给模型前后进行处理：
+- SimpleLoggerAdvisor - 日志记录
+- MessageChatMemoryAdvisor - 对话记忆管理
+- QuestionAnswerAdvisor - RAG 问答增强
+- RetrievalAugmentationAdvisor - 模块化 RAG
+
+## Tool Calling
+
+Spring AI 支持 Function Calling，让模型能够调用外部工具：
+- @Tool 注解声明式定义
+- FunctionToolCallback 编程式定义
+- ToolContext 传递运行时上下文
+- returnDirect 直接返回工具结果
+
+## MCP (Model Context Protocol)
+
+MCP 是标准化的模型上下文协议：
+- MCP Client - 连接外部 MCP 服务器
+- MCP Server - 暴露工具和资源
+- 支持 STDIO、SSE、Streamable-HTTP 传输

@@ -1,0 +1,20 @@
+server:
+  port: 8849
+
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/spring-ai-study
+
+  jpa:
+    hibernate:
+      ddl-auto: create-only
+
+  autoconfigure:
+    exclude: org.springframework.ai.model.openai.autoconfigure.OpenAiAudioTranscriptionAutoConfiguration,org.springframework.ai.model.openai.autoconfigure.OpenAiAudioSpeechAutoConfiguration,org.springframework.ai.model.openai.autoconfigure.OpenAiChatAutoConfiguration,org.springframework.ai.model.openai.autoconfigure.OpenAiEmbeddingAutoConfiguration,org.springframework.ai.model.openai.autoconfigure.OpenAiImageAutoConfiguration,org.springframework.ai.model.openai.autoconfigure.OpenAiModerationAutoConfiguration
+
+
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG

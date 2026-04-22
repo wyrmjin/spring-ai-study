@@ -1,0 +1,41 @@
+server:
+  port: 8854
+
+spring:
+  ai:
+    openai:
+      api-key: ${ZHIPU_API_KEY}
+      base-url: https://open.bigmodel.cn/api/paas/v4
+      chat:
+        completions-path: /chat/completions
+        options:
+          model: glm-4.7-flash
+          temperature: 0.7
+          max-tokens: 4096
+    # MCP Client 配置
+    mcp:
+      client:
+        enabled: true
+        name: spring-ai-mcp-client
+        version: 1.0.0
+        request-timeout: 30s
+        type: SYNC
+        # SSE 连接示例（连接 ch09 的 MCP Server）
+        sse:
+          connections:
+            my-tools-server:
+              url: http://localhost:8854
+        # STDIO 连接示例（连接本地命令行 MCP Server）
+        # stdio:
+        #   connections:
+        #     filesystem-server:
+        #       command: npx
+        #       args:
+        #         - -y
+        #         - "@modelcontextprotocol/server-filesystem"
+        #         - /tmp
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    io.modelcontextprotocol: DEBUG
