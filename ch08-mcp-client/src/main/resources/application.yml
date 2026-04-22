@@ -24,7 +24,7 @@ spring:
         sse:
           connections:
             my-tools-server:
-              url: http://localhost:8854
+              url: http://localhost:8855
         # STDIO 连接示例（连接本地命令行 MCP Server）
         # stdio:
         #   connections:
