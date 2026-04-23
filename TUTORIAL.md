@@ -746,7 +746,7 @@ cp .env.example .env
 
 ```properties
 # 智谱 GLM API Key（申请地址：https://open.bigmodel.cn）
-ZHIPU_API_KEY=xxxxxx
+API_KEY=xxxxxx
 
 # PostgreSQL 数据库账号密码
 DB_USERNAME=postgres

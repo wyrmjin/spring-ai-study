@@ -1,7 +1,7 @@
 spring:
   ai:
     openai:
-      api-key: ${ZHIPU_API_KEY}
+      api-key: ${API_KEY}
       base-url: ${BASE_URL}
       chat:
         completions-path: ${COMPLETIONS_PATH}

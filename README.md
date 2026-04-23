@@ -37,7 +37,7 @@ cp .env.example .env
 编辑 `.env` 填写实际值：
 
 ```properties
-ZHIPU_API_KEY=你的智谱API密钥
+API_KEY=API密钥
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 ```
