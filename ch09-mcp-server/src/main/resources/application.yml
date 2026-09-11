@@ -8,8 +8,10 @@ spring:
         name: my-tools-server
         version: 1.0.0
         type: SYNC
-        # 使用 SSE 协议，供 ch08-mcp-client 通过 HTTP 连接
-        protocol: SSE
+        # 使用 STREAMABLE 协议（MCP 2025-03-26+），供 ch08-mcp-client 通过 HTTP 连接
+        # 注：SSE 协议在当前技术栈（Spring Framework 7.0.6 + Tomcat 11.0.20）下
+        # 存在异步响应不刷新的问题，endpoint 事件无法送达客户端，故改用 STREAMABLE
+        protocol: STREAMABLE
         capabilities:
           tool: true
 

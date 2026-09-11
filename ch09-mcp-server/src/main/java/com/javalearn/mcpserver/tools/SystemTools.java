@@ -1,6 +1,6 @@
 package com.javalearn.mcpserver.tools;
 
-import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class SystemTools {
 
-    @Tool(description = "获取当前日期和时间")
+    @McpTool(description = "获取当前日期和时间")
     public String getCurrentTime() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
-    @Tool(description = "获取服务器运行状态信息")
+    @McpTool(description = "获取服务器运行状态信息")
     public String getServerStatus() {
         Runtime runtime = Runtime.getRuntime();
         long totalMem = runtime.totalMemory() / 1024 / 1024;

@@ -18,8 +18,8 @@ import java.util.List;
  * <p>
  * 演示如何通过 MCP Client 连接外部 MCP Server 并使用其工具。
  * <p>
- * 使用前需要先启动 ch09-mcp-server（端口 8854），
- * 本模块会通过 SSE 连接到 MCP Server 并获取工具列表。
+ * 使用前需要先启动 ch09-mcp-server（端口 8855），
+ * 本模块会通过 Streamable HTTP 连接到 MCP Server 并获取工具列表。
  * <p>
  * 测试：
  * GET /mcp/chat?message=帮我查一下北京现在的天气

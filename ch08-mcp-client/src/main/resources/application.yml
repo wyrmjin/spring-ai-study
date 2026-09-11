@@ -20,8 +20,9 @@ spring:
         version: 1.0.0
         request-timeout: 30s
         type: SYNC
-        # SSE 连接示例（连接 ch09 的 MCP Server）
-        sse:
+        # Streamable HTTP 连接（连接 ch09 的 MCP Server）
+        # 注：SSE 传输在当前技术栈下存在响应不刷新问题，推荐使用 STREAMABLE 协议
+        streamable-http:
           connections:
             my-tools-server:
               url: http://localhost:8855

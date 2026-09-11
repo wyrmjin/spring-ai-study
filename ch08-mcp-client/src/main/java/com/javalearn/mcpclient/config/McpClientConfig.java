@@ -19,7 +19,7 @@ public class McpClientConfig {
     public ChatClient mcpChatClient(ChatModel chatModel, ToolCallbackProvider mcpTools) {
         return ChatClient.builder(chatModel)
                 .defaultSystem("你是一个智能助手，可以通过工具获取实时信息。请用中文回答。")
-                .defaultToolCallbacks(mcpTools)
+                .defaultTools(mcpTools)
                 .build();
     }
 }
