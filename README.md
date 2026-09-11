@@ -1,6 +1,6 @@
 # Spring AI 2.0 学习教程
 
-基于 **Spring AI 2.0.0-M4** + **Spring Boot 4.0.5** + **Java 21** 的 Spring AI 渐进式教程，通过 10 个独立模块讲解 Spring AI 核心功能。
+基于 **Spring AI 2.0.1** + **Spring Boot 4.2.0-M1** + **Java 25** 的 Spring AI 渐进式教程，通过 10 个独立模块讲解 Spring AI 核心功能。
 
 - **AI 提供商**: 智谱 GLM (glm-4.7-flash / embedding-3) via OpenAI 兼容 API
 - **向量数据库**: PGVector (PostgreSQL)
@@ -12,19 +12,19 @@
 | ch01-chat-demo | 8848 | 基础对话（同步/流式/Prompt模板/结构化输出） |
 | ch02-embeddings-demo | - | Embedding 与 PGVector 向量存储 |
 | ch03-key-polling | 8849 | API Key 轮询 |
-| ch04-function-call | 8849 | 函数调用基础（FunctionToolCallback） |
-| ch05-chat-memory | 8850 | 对话记忆（内存/JDBC 持久化） |
-| ch06-advanced-tool-call | 8851 | 高级工具调用（@Tool / ToolContext / returnDirect） |
-| ch07-rag-knowledge | 8852 | RAG 知识库问答 |
-| ch08-mcp-client | 8853 | MCP 客户端 |
-| ch09-mcp-server | 8854 | MCP 服务端 |
-| ch10-multi-agent | 8855 | 多智能体协作（Router 模式） |
+| ch04-function-call | 8850 | 函数调用基础（FunctionToolCallback） |
+| ch05-chat-memory | 8851 | 对话记忆（内存/JDBC 持久化） |
+| ch06-advanced-tool-call | 8852 | 高级工具调用（@Tool / ToolContext / returnDirect） |
+| ch07-rag-knowledge | 8853 | RAG 知识库问答 |
+| ch08-mcp-client | 8854 | MCP 客户端（Streamable HTTP 连接） |
+| ch09-mcp-server | 8855 | MCP 服务端（@McpTool / STREAMABLE 协议） |
+| ch10-multi-agent | 8856 | 多智能体协作（Router 模式） |
 
 ## 快速开始
 
 ### 1. 环境准备
 
-- Java 21+
+- Java 25+
 - Maven 3.9+
 - Docker（用于运行 PGVector）
 
@@ -38,6 +38,9 @@ cp .env.example .env
 
 ```properties
 API_KEY=API密钥
+BASE_URL=https://open.bigmodel.cn/api/paas/v4
+COMPLETIONS_PATH=/chat/completions
+MODEL_ID=glm-4.7-flash
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 ```
