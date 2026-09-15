@@ -12,25 +12,24 @@ import reactor.core.publisher.Flux;
 /**
  * 对话记忆控制器
  * <p>
- * 演示三种对话记忆方案：
+ * 演示两种对话记忆方案：
  * 1. MessageChatMemoryAdvisor + InMemory - 内存存储，消息列表注入
- * 2. PromptChatMemoryAdvisor + InMemory - 内存存储，拼接到系统提示
- * 3. MessageChatMemoryAdvisor + JDBC    - 数据库持久化
+ * 2. MessageChatMemoryAdvisor + JDBC    - 数据库持久化
+ * <p>
+ * 注：旧版 PromptChatMemoryAdvisor（拼接到系统提示）的 /chat/prompt 端点
+ * 已随 Spring AI 2.0.x 移除该 Advisor 而删除。
  */
 @RestController
 @RequestMapping("/chat")
 public class ChatMemoryController {
 
     private final ChatClient messageMemoryChatClient;
-    private final ChatClient promptMemoryChatClient;
     private final ChatClient jdbcMemoryChatClient;
 
     public ChatMemoryController(
             @Qualifier("messageMemoryChatClient") ChatClient messageMemoryChatClient,
-            @Qualifier("promptMemoryChatClient") ChatClient promptMemoryChatClient,
             @Qualifier("jdbcMemoryChatClient") ChatClient jdbcMemoryChatClient) {
         this.messageMemoryChatClient = messageMemoryChatClient;
-        this.promptMemoryChatClient = promptMemoryChatClient;
         this.jdbcMemoryChatClient = jdbcMemoryChatClient;
     }
 
@@ -67,23 +66,7 @@ public class ChatMemoryController {
     }
 
     /**
-     * 方式二：PromptChatMemoryAdvisor
-     * 将历史对话拼接到系统提示中，适用于不支持长上下文消息列表的模型
-     * <p>
-     * 测试流程同上
-     */
-    @GetMapping("/prompt")
-    public String promptMemory(@RequestParam String conversationId,
-                               @RequestParam String message) {
-        return promptMemoryChatClient.prompt()
-                .user(message)
-                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
-                .call()
-                .content();
-    }
-
-    /**
-     * 方式三：JDBC 持久化对话记忆
+     * 方式二：JDBC 持久化对话记忆
      * 对话记录存入 PostgreSQL，重启应用后仍然保留
      * <p>
      * 测试流程：

@@ -2,7 +2,6 @@ package com.javalearn.chatmemory.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.ChatMemoryRepository;
@@ -15,9 +14,12 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 对话记忆配置
  * <p>
- * 演示两种 Advisor：
- * 1. MessageChatMemoryAdvisor - 将历史消息作为消息列表注入（推荐）
- * 2. PromptChatMemoryAdvisor - 将历史消息拼接到系统提示文本中
+ * 演示两种 Advisor 用法：
+ * 1. MessageChatMemoryAdvisor + 内存存储 - 将历史消息作为消息列表注入（推荐）
+ * 2. MessageChatMemoryAdvisor + JDBC 存储 - 数据库持久化
+ * <p>
+ * 注：旧版的 PromptChatMemoryAdvisor（将历史拼接到系统提示文本）已在
+ * Spring AI 2.0.x 中移除，统一使用 MessageChatMemoryAdvisor 注入消息列表。
  */
 @Configuration
 public class ChatMemoryConfig {
@@ -71,22 +73,6 @@ public class ChatMemoryConfig {
                         customLogger,
                         MessageChatMemoryAdvisor.builder(inMemoryChatMemory).build()
 
-                )
-                .build();
-    }
-
-    /**
-     * 使用 PromptChatMemoryAdvisor 的 ChatClient
-     * 将对话历史拼接到系统提示文本中，适用于不支持长上下文的模型
-     */
-    @Bean("promptMemoryChatClient")
-    public ChatClient promptMemoryChatClient(ChatModel chatModel,
-                                             ChatMemory inMemoryChatMemory) {
-        return ChatClient.builder(chatModel)
-                .defaultSystem("你是一个友好的AI助手，请用中文回答。")
-                .defaultAdvisors(
-                        customLogger,
-                        PromptChatMemoryAdvisor.builder(inMemoryChatMemory).build()
                 )
                 .build();
     }

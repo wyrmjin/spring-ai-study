@@ -24,6 +24,13 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-openai</artifactId>
         </dependency>
+        <!-- Spring AI 2.0.x 基于 OpenAI 官方 SDK，手动构建 OpenAIClient 需要 OkHttp 实现
+             （starter 默认只传递 openai-java-core，不包含 client-okhttp） -->
+        <dependency>
+            <groupId>com.openai</groupId>
+            <artifactId>openai-java-client-okhttp</artifactId>
+            <version>4.49.0</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

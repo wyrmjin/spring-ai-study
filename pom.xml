@@ -49,4 +49,19 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.15.0</version>
+                <configuration>
+                    <!-- JDK 23+ 的 javac 默认不再隐式运行注解处理器，
+                         不显式开启会导致 Lombok 静默失效（getter/setter 不生成） -->
+                    <proc>full</proc>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
